@@ -14,6 +14,9 @@ const repo = 'https://github.com/tysoncung/regen.engineering'
 
 const fullTitle = title === 'Regen Engineering' ? title : `${title} | Regen Engineering`
 const canonical = new URL(Astro.url.pathname, site).toString()
+// One static card for every page. Per-page cards would be nicer and would cost
+// a build-time image pipeline; the tagline is the thing worth putting in a feed.
+const ogImage = `${site}/og.png`
 
 const nav = [
   { href: '/', label: 'Manifesto' },
@@ -39,10 +42,15 @@ const here = Astro.url.pathname.replace(/\/$/, '') || '/'
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:site_name" content="Regen Engineering" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Regen Engineering. Knowledge is the asset. Code is the byproduct." />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
   </head>
 
   <body>

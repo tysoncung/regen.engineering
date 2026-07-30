@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0e100f"/>
+      <stop offset="100%" stop-color="#141a17"/>
+    </linearGradient>
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#63c398" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#63c398" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- the regeneration arc, echoing the favicon -->
+  <g transform="translate(1010,120)" opacity="0.16">
+    <path d="M0 0a115 115 0 1 0 115 115" fill="none" stroke="#63c398" stroke-width="26" stroke-linecap="round"/>
+    <path d="M0 -62 63 0 0 62z" fill="#63c398"/>
+  </g>
+
+  <rect x="80" y="86" width="120" height="3" fill="url(#fade)"/>
+
+  <text x="80" y="128" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="21" letter-spacing="3.4" fill="#9b9b93">REGEN ENGINEERING</text>
+
+  <text x="80" y="286" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="72" font-weight="700" letter-spacing="-2.2" fill="#e9e9e4">Knowledge is the asset.</text>
+
+  <text x="80" y="372" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="72" font-weight="700" letter-spacing="-2.2" fill="#63c398">Code is the byproduct.</text>
+
+  <line x1="80" y1="448" x2="1120" y2="448" stroke="#262a27" stroke-width="1"/>
+
+  <text x="80" y="500" font-family="Menlo, SFMono-Regular, Consolas, monospace"
+        font-size="23" fill="#7d8a83" xml:space="preserve">binaries  are a build artifact of  code</text>
+
+  <text x="80" y="536" font-family="Menlo, SFMono-Regular, Consolas, monospace"
+        font-size="23" fill="#c9d4ce" xml:space="preserve">code      is  a build artifact of  knowledge</text>
+
+  <text x="80" y="586" font-family="Helvetica Neue, Helvetica, Arial, sans-serif"
+        font-size="20" fill="#6a726d">regen.engineering</text>
+</svg>
