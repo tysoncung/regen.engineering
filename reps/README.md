@@ -9,6 +9,7 @@ Start with [REP-0001](REP-0001-the-rep-process.md), which defines the process an
 | REP | Title | Status |
 |---|---|---|
 | [0001](REP-0001-the-rep-process.md) | The REP process | Active |
+| [0002](REP-0002-require-interface-contracts.md) | Require a machine-readable interface contract for modules exposing an API | Draft |
 
 ## Short version
 
