@@ -1,0 +1,13 @@
+{
+  // Static assets only. There is no `main` entry point on purpose: the site is
+  // fully prerendered HTML, so no Worker script and no Astro SSR adapter is needed.
+  //
+  // This file must exist. Without it, `wrangler deploy` runs auto-config, which
+  // installs @astrojs/cloudflare and prerenders through workerd, and that fails
+  // when the generated compatibility date is newer than the build image's runtime.
+  "name": "regen-engineering",
+  "compatibility_date": "2026-06-01",
+  "assets": {
+    "directory": "./dist"
+  }
+}
