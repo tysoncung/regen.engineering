@@ -2,6 +2,8 @@
 layout: ../layouts/Page.astro
 title: Glossary
 description: The vocabulary of Regen Engineering, defined in one place.
+setup: |
+  import KnowledgeGraph from '../components/KnowledgeGraph.astro'
 ---
 
 # Glossary
@@ -20,20 +22,36 @@ The unit of change. A change to the knowledge, written and reviewed on its own, 
 
 Knowledge that is missing, wrong, or exists only in someone's head. Related to technical debt but upstream of it: technical debt makes change slow, knowledge debt makes change dangerous.
 
-Measured with four numbers, all computable:
+Measured with five numbers:
 
 - **Coverage**: modules with a structurally complete knowledge package. A floor, not a quality measure.
 - **Freshness**: modules built from current knowledge.
 - **Integrity**: modules with code-ahead drift. Target zero. This is the rot metric.
 - **Traceability**: active rules with both a verifying contract and an implementing module.
+- **Regenerability**: modules that have actually passed a regeneration attempt recently.
+
+The first four are computed from files in seconds. Regenerability costs real money, because answering it means actually regenerating something, and that is exactly what makes it the honest one: it is the only measure that cannot be satisfied by tidy paperwork.
 
 ## Knowledge Compiler
 
 The pipeline from knowledge to a deployed system: impact analysis, planning, generation, testing, verification. Today this is an agent plus continuous integration, not a product. The [skills](https://github.com/tysoncung/regen-engineering-skills) are one implementation of it.
 
+## The graph, drawn
+
+Everything below is a node or an edge in one graph. This is the reference demo's, rendered from its actual links rather than drawn by hand for illustration:
+
+<KnowledgeGraph />
+
 ## Regeneration Scope
 
 The blast radius of a knowledge delta, computed from the links between knowledge items, and the boundary of what gets regenerated. Deterministic graph traversal, so it is computed rather than estimated.
+
+Render your own with `regen-graph`, as Mermaid, Graphviz, or plain text:
+
+```bash
+regen-graph --format text      # no tooling required
+regen-graph --focus BR-002     # just what one change touches
+```
 
 ## Regeneration Lineage
 
