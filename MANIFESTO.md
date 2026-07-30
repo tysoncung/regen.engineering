@@ -113,6 +113,26 @@ That single small file per module turns the compiler metaphor into an operationa
 
 ---
 
+## 3.7 The loop is maintained, not merely written
+
+Everything above describes artifacts: knowledge in a repository, contracts beside it, code produced from both. Artifacts are the easy part. The relationship between them decays continuously, and documentation has always failed for exactly one reason, which has nothing to do with formats or discipline.
+
+Keeping it true is work nobody is paid to do.
+
+That is the constraint agents remove. Not the typing of implementations, which is the least interesting thing they do here, but the unglamorous maintenance that no team has ever had budget for. Three practices follow, and none of them was available before.
+
+**Continuous regeneration.** Continuous integration proves your code still works. Regenerate a module on a schedule and you prove something else: that you still understand your system. When that fails, nothing is broken and no user is affected. What has decayed is your knowledge, and you have found out before it mattered. A module nobody has regenerated in six months is not known to be regenerable, only believed to be.
+
+**Independent verification.** An agent must not verify work it produced, and must not see an existing implementation of the thing it is regenerating. This is not fastidiousness. The demo accompanying this document originally had both of its implementations written by the same agent in one session, which proved nothing whatsoever; it was marking its own homework. Only when an independent agent was given the knowledge alone did the exercise produce information, and it immediately failed a fifth of the contracts and exposed a rule referencing an interface that no document described.
+
+**Autonomous reconciliation.** When drift is found, the machine drafts the knowledge change describing what the code now does, and a person reviews a proposal rather than facing a blank page. The judgment stays human. The typing does not. This is the same inversion that makes mining work on old systems: nobody writes documentation from nothing, but everybody will correct a wrong sentence about their own domain.
+
+A caution, because this is where the idea is easiest to oversell. Agents are how this loop runs in 2026. They are not what the methodology is. Knowledge outlives implementations, stacks, and tools, and that emphatically includes the tools that regenerate it. A method defined by what today's agents happen to do would date the moment they change, and would forfeit the independence that is the whole point.
+
+Automate the toil. Do not automate the judgment. Who decides what the system should do, which contracts are accepted, and what risk is tolerable stays exactly where it was.
+
+---
+
 ## 4. The Regeneration Test
 
 A methodology needs one question that anyone can ask on a Monday morning and get an uncomfortable answer to.
@@ -183,6 +203,9 @@ Four numbers, all computable from the knowledge tree and the provenance files:
 - **Freshness.** What share are built from current knowledge, and how old is the oldest backlog item?
 - **Integrity.** How much code-ahead drift exists? The target is zero. This is the rot metric.
 - **Traceability.** What share of business rules have at least one contract verifying them and at least one module implementing them?
+- **Regenerability.** What share of modules have actually passed a regeneration attempt recently, and how old is the oldest passing result?
+
+Regenerability is the odd one out, and deliberately so. The other four can be computed from files in seconds. This one costs real money to answer, because answering it means actually regenerating something. That is exactly what makes it the honest measure: it is the only one that cannot be satisfied by tidy paperwork.
 
 Traceability deserves a note. Regulated industries already maintain requirement-to-test traceability by law, and they do it expensively, with dedicated tooling bolted alongside the codebase. Here it falls out of the links people were already writing.
 

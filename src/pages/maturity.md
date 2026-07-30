@@ -56,6 +56,7 @@ Individual modules pass the Regeneration Test. This is where verification become
 - [ ] Every generated module records its provenance: knowledge version, model, date, contracts passed
 - [ ] Continuous integration blocks code-ahead drift
 - [ ] Knowledge debt is measured rather than felt
+- [ ] Regeneration is verified by an agent that did **not** write the code and cannot see the previous implementation
 
 **Next step:** widen the set of modules that pass, and try a second stack.
 
@@ -66,6 +67,8 @@ Regeneration is the normal response to change, including a change of stack or mo
 - [ ] Regenerating is a routine choice, not an event
 - [ ] Knowledge has survived at least one stack or model change
 - [ ] Line-by-line review of generated code has given way to knowledge review plus behaviour-diff review
+- [ ] Regeneration runs on a schedule, so knowledge decay is found before it matters
+- [ ] Drift produces a drafted knowledge change for review, not a chore for a human
 - [ ] Security review has **not** been given up, at any level
 
 Very few systems are here, and this document is not going to pretend otherwise.
