@@ -279,6 +279,12 @@ Those are good tools and good arguments, and this manifesto agrees with all of t
 
 **Against feature-scoped tools.** Spec Kit and Kiro answer the question "how do I build the next thing with AI." A specification is written, it drives an implementation, and after the merge nobody guarantees it is still true. That is not a flaw; it is what those tools are for. Regen Engineering answers a different question, **how do you own a system for ten years once code is cheap**, and that question forces everything the feature-scoped view can skip: the whole system rather than one feature, a lifecycle rather than a hand-off, drift detection, a debt model, provenance, and a brownfield path.
 
+**Against loop engineering.** The newest neighbour, and the closest ally. Loop engineering is about designing the control system an agent runs inside: the trigger, the topology, the verifier, the stop rules. Its own literature keeps landing on the same conclusion, that **the verifier is the bottleneck, not the model**.
+
+That conclusion is where these two ideas meet, because it leaves a question open. A verifier invented per task, by the same agent that will be graded against it, is not a verifier; it is an agent agreeing with itself. This document's answer is that the verifier is the contract suite, which is knowledge: versioned, reviewed by people, written before generation, and never edited to make a run terminate.
+
+Put compactly: **loop engineering makes the agent finish. This is about deciding what finishing means, and making that answer outlive the loop.** One is designing the afternoon. The other is owning the decade. A team wants both, and neither substitutes for the other, since a perfect loop pointed at knowledge that does not exist still produces a system nobody understands in three years.
+
 **Against platforms.** Tessl is not feature-scoped, and it would be unfair to pretend otherwise; its position on durable specs and disposable code is close to this one. The difference there is not scope but ownership. This is a methodology, not a product: an open schema, conventions anyone can implement, and no registry to depend on. There should be many reference implementations, ideally including commercial ones. But knowledge that compiles only inside one company's platform is not the stack-independent knowledge this document is arguing for, and a methodology that outlives its tools has to be specified somewhere the tools do not control.
 
 ---
