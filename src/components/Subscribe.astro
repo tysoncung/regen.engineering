@@ -1,0 +1,29 @@
+---
+// A native form post to the Worker, deliberately not fetch(), so the site
+// continues to ship zero JavaScript to the browser.
+const { ref = 'site' } = Astro.props
+---
+
+<aside class="subscribe">
+  <h2>Occasional updates</h2>
+  <p>
+    When the schema changes, when there is a field report worth reading, or when this stops being
+    version 0.1. Not often, and never anything else.
+  </p>
+  <form method="POST" action="/subscribe">
+    <label class="hp" aria-hidden="true">
+      Company <input type="text" name="company" tabindex="-1" autocomplete="off" />
+    </label>
+    <input type="hidden" name="ref" value={ref} />
+    <label class="hp" for="sub-email">Email address</label>
+    <input
+      id="sub-email"
+      type="email"
+      name="email"
+      placeholder="you@example.com"
+      required
+      autocomplete="email"
+    />
+    <button type="submit">Subscribe</button>
+  </form>
+</aside>

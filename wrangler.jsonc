@@ -19,5 +19,12 @@
     "directory": "./dist",
     "binding": "ASSETS",
     "run_worker_first": true
-  }
+  },
+  // Mailing list storage. Create the namespace once, then paste its id here:
+  //   Cloudflare dashboard -> Storage & Databases -> KV -> Create -> "regen-subscribers"
+  // Until an id is present this block stays commented out and /subscribe
+  // returns a clear 503 rather than silently dropping addresses.
+  // "kv_namespaces": [
+  //   { "binding": "SUBSCRIBERS", "id": "PASTE_NAMESPACE_ID_HERE" }
+  // ]
 }
