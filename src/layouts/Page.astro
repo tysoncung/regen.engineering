@@ -1,0 +1,80 @@
+---
+import '../styles/global.css'
+
+// Used two ways: directly by .astro pages passing props, and as the `layout`
+// of Markdown pages, where Astro supplies frontmatter instead.
+const { frontmatter } = Astro.props
+const title = frontmatter?.title ?? Astro.props.title
+const description = frontmatter?.description ?? Astro.props.description
+// The manifesto's own title and tagline double as the masthead, which needs
+// styling the ordinary content pages must not inherit.
+const variant = frontmatter?.variant ?? Astro.props.variant ?? 'page'
+const site = 'https://regen.engineering'
+const repo = 'https://github.com/tysoncung/regen.engineering'
+
+const fullTitle = title === 'Regen Engineering' ? title : `${title} | Regen Engineering`
+const canonical = new URL(Astro.url.pathname, site).toString()
+
+const nav = [
+  { href: '/', label: 'Manifesto' },
+  { href: '/start', label: 'Start' },
+  { href: '/maturity', label: 'Maturity' },
+  { href: '/glossary', label: 'Glossary' },
+]
+const here = Astro.url.pathname.replace(/\/$/, '') || '/'
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Regen Engineering" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header class="topbar">
+        <a class="wordmark" href="/">Regen<span>&nbsp;Engineering</span></a>
+        <nav>
+          {
+            nav.map((item) => (
+              <a href={item.href} class={here === item.href ? 'here' : ''}>
+                {item.label}
+              </a>
+            ))
+          }
+          <a href={repo}>GitHub</a>
+        </nav>
+      </header>
+
+      <article class={`prose prose-${variant}`}>
+        <slot />
+      </article>
+    </div>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          Regen Engineering is an open methodology, version 0.1, and is meant to be argued with.
+          Proposals go through the <a href={`${repo}/tree/main/reps`}>REP process</a>; corrections
+          and field reports are welcome on <a href={repo}>GitHub</a>.
+        </p>
+        <p>Text licensed <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>.</p>
+      </div>
+    </footer>
+  </body>
+</html>
