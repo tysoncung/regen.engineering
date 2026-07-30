@@ -6,7 +6,8 @@
   --accent: #2c7a58;
   --accent-soft: #e6f2ec;
   --border: #e4e4de;
-  --measure: 40rem;
+  --measure: 46rem;   /* prose column: readable line length */
+  --shell: 78rem;     /* page chrome: uses the screen without hurting reading */
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
@@ -70,6 +71,22 @@ body {
   max-width: var(--measure);
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+/* Header and footer span the full shell so the page occupies the screen,
+   while prose keeps a line length you can actually read. Measure matters more
+   than filling space: past roughly 90 characters the eye loses its place on
+   the return sweep. */
+.wrap-wide {
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+@media (max-width: 640px) {
+  .wrap-wide {
+    padding: 0 1.15rem;
+  }
 }
 
 /* Topbar */

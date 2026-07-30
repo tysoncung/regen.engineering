@@ -55,7 +55,7 @@ const here = Astro.url.pathname.replace(/\/$/, '') || '/'
   </head>
 
   <body>
-    <div class="wrap">
+    <div class="wrap-wide">
       <header class="topbar">
         <a class="wordmark" href="/">Regen<span>&nbsp;Engineering</span></a>
         <nav>
@@ -69,7 +69,9 @@ const here = Astro.url.pathname.replace(/\/$/, '') || '/'
           <a href={repo}>GitHub</a>
         </nav>
       </header>
+    </div>
 
+    <div class="wrap">
       <article class={`prose prose-${variant}`}>
         <slot />
       </article>
@@ -78,7 +80,7 @@ const here = Astro.url.pathname.replace(/\/$/, '') || '/'
     </div>
 
     <footer class="site-footer">
-      <div class="wrap">
+      <div class="wrap-wide">
         <p>
           Regen Engineering is an open methodology, version 0.1, and is meant to be argued with.
           Proposals go through the <a href={`${repo}/tree/main/reps`}>REP process</a>; corrections
