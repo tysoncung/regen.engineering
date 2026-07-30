@@ -471,3 +471,90 @@ body {
   height: 1px;
   overflow: hidden;
 }
+
+/* ---------------------------------------------------- knowledge graph */
+
+  .kgraph {
+    margin: 2.5rem 0;
+  }
+
+  .kgraph svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .kgraph figcaption {
+    margin-top: 0.9rem;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+  }
+
+  .kg-col {
+    font-size: 11px;
+    letter-spacing: 1.6px;
+    fill: var(--text-muted);
+    font-weight: 600;
+  }
+
+  .kg-node rect {
+    fill: var(--bg-soft);
+    stroke: var(--border);
+    stroke-width: 1;
+  }
+
+  .kg-contract rect {
+    stroke: var(--accent);
+  }
+
+  .kg-module rect {
+    fill: var(--accent-soft);
+    stroke: var(--accent);
+  }
+
+  .kg-label text {
+    font-size: 13px;
+    font-weight: 650;
+    fill: var(--text);
+    text-anchor: middle;
+  }
+
+  .kg-sub text {
+    font-size: 11px;
+    fill: var(--text-muted);
+    text-anchor: middle;
+  }
+
+  .kg-edge {
+    fill: none;
+    stroke-width: 1.4;
+  }
+
+  .kg-verifies {
+    stroke: var(--accent);
+    stroke-width: 2;
+  }
+
+  .kg-built {
+    stroke: var(--text-muted);
+  }
+
+  .kg-affects {
+    stroke: var(--text-muted);
+    stroke-dasharray: 4 4;
+    opacity: 0.75;
+  }
+
+  .kg-arrowhead {
+    fill: var(--text-muted);
+  }
+
+  .kg-arrowhead-v {
+    fill: var(--accent);
+  }
+
+  .kg-legend text {
+    font-size: 11px;
+    fill: var(--text-muted);
+  }
