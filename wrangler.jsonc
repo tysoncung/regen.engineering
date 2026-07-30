@@ -1,17 +1,23 @@
 {
-  // A small Worker in front of static assets. It exists for one reason: the
-  // zone-level "Always Use HTTPS" setting does not apply to Workers custom
-  // domains, so the HTTP to HTTPS redirect has to happen here. Everything else
-  // falls through to the prerendered files via the ASSETS binding.
+  // A small Worker in front of static assets, for the one thing static assets
+  // cannot do: redirect plain HTTP to HTTPS. The zone-level "Always Use HTTPS"
+  // setting does not apply to Workers custom domains, so it has to happen here.
   //
-  // This file must exist. Without it, `wrangler deploy` runs auto-config, which
-  // installs @astrojs/cloudflare and prerenders through workerd, and that fails
-  // when the generated compatibility date is newer than the build image runtime.
+  // `run_worker_first` is load-bearing. By default Cloudflare serves a matching
+  // static file straight from the edge and never invokes the Worker, so the
+  // redirect silently never ran even though deploys were succeeding. With this
+  // set, the Worker runs on every request and falls through to the assets.
+  //
+  // This file must also exist for a second reason: without it, `wrangler deploy`
+  // runs auto-config, installs @astrojs/cloudflare, and prerenders through
+  // workerd, which fails when the generated compatibility date is newer than the
+  // build image runtime.
   "name": "regen-engineering",
   "compatibility_date": "2026-06-01",
   "main": "worker/index.js",
   "assets": {
     "directory": "./dist",
-    "binding": "ASSETS"
+    "binding": "ASSETS",
+    "run_worker_first": true
   }
 }
