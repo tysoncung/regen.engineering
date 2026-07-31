@@ -4,9 +4,13 @@
 |---|---|
 | **REP** | 0002 |
 | **Title** | Require a machine-readable interface contract for modules exposing an API |
-| **Status** | Draft |
+| **Status** | Active |
 | **Created** | 2026-07-31 |
 | **Author** | Tyson Cung |
+
+## Acceptance
+
+Accepted 2026-07-31 by Tyson Cung, waiving the discussion window under the no-external-contributors clause of REP-0001. Implemented in [schema PR #1](https://github.com/tysoncung/regen-engineering-schema/pull/1) and [demo PR #5](https://github.com/tysoncung/regen-engineering-demo/pull/5), both merged with CI green. Schema version 0.2.0.
 
 ## Summary
 

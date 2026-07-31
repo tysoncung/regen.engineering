@@ -55,7 +55,7 @@ Rejected REPs stay in the repository. A record of what was considered and declin
 1. Open an issue first to sound out the idea. Cheaper than writing a document nobody wanted.
 2. Copy [TEMPLATE.md](TEMPLATE.md) to `reps/REP-XXXX-short-title.md`, using the next free number.
 3. Open a pull request. Discussion happens there.
-4. A REP needs at least seven days of open discussion before it can be accepted, so that people who do not read GitHub daily can still object.
+4. A REP normally gets seven days of open discussion before acceptance, so that people who do not read GitHub daily can still object. **While the project has no external contributors, the accepting authority may waive the window**, because a waiting period that protects nobody only slows the work; each waiver is recorded in the REP it applies to. The full window becomes binding the moment there are external contributors to protect.
 
 ## Who decides
 

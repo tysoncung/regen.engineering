@@ -4,9 +4,13 @@
 |---|---|
 | **REP** | 0003 |
 | **Title** | The agentic operating model |
-| **Status** | Draft |
+| **Status** | Active |
 | **Created** | 2026-07-31 |
 | **Author** | Tyson Cung |
+
+## Acceptance
+
+Accepted 2026-07-31 by Tyson Cung, waiving the discussion window under the no-external-contributors clause of REP-0001. The tooling half (regen-test harness, Regenerability metric) had been built ahead as permitted; acceptance unblocks continuous regeneration in CI and the reconciliation exercise.
 
 ## Summary
 
