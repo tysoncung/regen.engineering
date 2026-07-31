@@ -54,6 +54,7 @@ The manifesto and documentation aim to be plain and argumentative rather than pr
 - Concede weaknesses in the same paragraph as the claim, not in a footnote. The honest-limits sections exist because they make the strong claims credible.
 - No marketing register. If a sentence would fit on a landing page for a product, rewrite it.
 - British spellings, for consistency rather than principle.
+- No AI tool attribution anywhere: no "Generated with ..." footers, no AI co-author trailers, in commits, pull requests, issues, or code, whatever tool produced the work. The work stands under its human author's name. The one exception is `knowledge.lock` provenance fields, which record which model produced a build because that is Regeneration Lineage, a methodology mechanism rather than a credit.
 
 ## Code
 
