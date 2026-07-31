@@ -11,6 +11,7 @@ Start with [REP-0001](REP-0001-the-rep-process.md), which defines the process an
 | [0001](REP-0001-the-rep-process.md) | The REP process | Active |
 | [0002](REP-0002-require-interface-contracts.md) | Require a machine-readable interface contract for modules exposing an API | Active |
 | [0003](REP-0003-the-agentic-operating-model.md) | The agentic operating model | Active |
+| [0004](REP-0004-raid-types-and-dependencies.md) | Risk and issue types, and declared dependencies | Active |
 
 ## Short version
 
