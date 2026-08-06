@@ -1,6 +1,5 @@
 ---
 import '../styles/global.css'
-import Subscribe from '../components/Subscribe.astro'
 
 // Used two ways: directly by .astro pages passing props, and as the `layout`
 // of Markdown pages, where Astro supplies frontmatter instead.
@@ -75,8 +74,6 @@ const here = Astro.url.pathname.replace(/\/$/, '') || '/'
       <article class={`prose prose-${variant}`}>
         <slot />
       </article>
-
-      <Subscribe ref={here} />
     </div>
 
     <footer class="site-footer">
