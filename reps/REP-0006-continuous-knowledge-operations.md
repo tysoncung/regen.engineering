@@ -98,6 +98,35 @@ The failure mode to watch is not cost but noise: four agents filing proposals no
 | [#6](https://github.com/tysoncung/regen.engineering/issues/6) | The Gatherer |
 | [#7](https://github.com/tysoncung/regen.engineering/issues/7) | The Monitor and the Trigger |
 
+## Implementation status
+
+All four are built and running against the brownfield pilot as of 2026-08-07.
+
+| Agent | Ships as | Runs |
+|---|---|---|
+| Librarian | `regen-librarian` plus the `librarian` skill | Weekly, Mondays |
+| Monitor | `regen-monitor` | Weekly, Thursdays |
+| Trigger | `regen-trigger` plus the `trigger` skill | Weekly, Thursdays |
+| Gatherer | `regen-gather` plus the `gatherer` skill | Weekly, Thursdays |
+
+The Monitor ships as a tool alone, with no skill. Its output is a ranked list, ranking is arithmetic, and adding a reading pass to it would be ceremony rather than judgement. The other three each have a mechanical half that says where to look and a reading half that decides what it means.
+
+### What was learned building them
+
+**The split between arithmetic and judgement is real, and the arithmetic half finds much less.** On the pilot's 38 items the Librarian's mechanical pass found nine minor candidates; its reading pass found six that mattered, including a fix to one issue that had silently made a different open issue worse.
+
+**The most valuable category is an item that was true when written and that later work falsified.** Four of those six were this. Nothing marks such an item as changed, because the item does not change when the world does, and no validator can hold an opinion about it.
+
+**The Trigger's refusals turned out to be its most useful behaviour.** Every decay signal points at a module at exactly the moment regenerating it is most destructive, because code-ahead drift is both a decay signal and a reason regeneration would delete evidence. That refusal is mechanical rather than a judgement call, which was not obvious before building it.
+
+**A finding that generalises should stop being a reading-pass finding.** Two of the Librarian's first findings became validator rules in schema 0.5.0, so the expensive half no longer re-finds them. That direction of travel is the thing to hold to.
+
+**The reference implementation caught its own operator.** The second scheduled run's top-ranked finding was a defect introduced hours earlier, in the commit that was acting on the first run's findings, by the person acting on them. Under three hours from mistake to report, with nobody noticing in between.
+
+### What is not established
+
+Two runs, one tree, 38 items, on days that tree was being actively edited, which is the condition most favourable to finding fresh contradictions. The failure mode named below is noise, and noise takes weeks of quiet runs to measure. Nothing here says what happens at 400 items.
+
 ## Open questions
 
 - What is the right cadence for each? Nightly Librarian and weekly Monitor are guesses.
