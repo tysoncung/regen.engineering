@@ -58,11 +58,11 @@ The manifesto and documentation aim to be plain and argumentative rather than pr
 
 ## Code
 
-- Tests before claims. The schema tooling has 32 cases, most of them negative, because a validator that only ever says OK is worthless.
+- Tests before claims. The schema tooling has 50 cases, most of them negative, because a validator that only ever says OK is worthless.
 - No dependencies unless there is a real reason. The demo runs anywhere Node and Python exist, with nothing to install, and that is deliberate.
 - Comments explain constraints, not mechanics.
 
-Run `npm test` in the schema repo and `node verify.mjs` in the demo before opening a pull request.
+Run `npm test` in the schema repo and `node verify.mjs` in the demo before opening a pull request. The tools are published as [`regen-engineering-schema`](https://www.npmjs.com/package/regen-engineering-schema); note that `npx` needs `-p regen-engineering-schema <command>`, because the command names are not package names.
 
 ## Conduct
 

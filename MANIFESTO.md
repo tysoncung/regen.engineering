@@ -2,7 +2,13 @@
 
 **Knowledge is the asset. Code is the byproduct.**
 
-Version 0.1 (draft, 2026-07-30)
+Version 0.2 (draft, 2026-08-06)
+
+*What changed since 0.1: an operating model for agents, a position against loop
+engineering, a fifth debt metric, and five new entries in the honest limits.
+Every one of those limits was found by using this on real code rather than by
+review, and the section on what this cannot do is now the longest in the
+document. That is deliberate.*
 
 ---
 
