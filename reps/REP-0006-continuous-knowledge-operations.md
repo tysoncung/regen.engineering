@@ -90,6 +90,14 @@ This turns a methodology with near-zero running cost into one with a monthly bil
 
 The failure mode to watch is not cost but noise: four agents filing proposals nobody reads is worse than no agents, because it trains people to ignore the channel where real findings arrive. Every one of these must earn its place by proposal acceptance rate, and any of them that runs for a month without a finding worth acting on should be turned off rather than defended.
 
+## Implementation
+
+| Issue | |
+|---|---|
+| [#5](https://github.com/tysoncung/regen.engineering/issues/5) | The Librarian, recommended first |
+| [#6](https://github.com/tysoncung/regen.engineering/issues/6) | The Gatherer |
+| [#7](https://github.com/tysoncung/regen.engineering/issues/7) | The Monitor and the Trigger |
+
 ## Open questions
 
 - What is the right cadence for each? Nightly Librarian and weekly Monitor are guesses.

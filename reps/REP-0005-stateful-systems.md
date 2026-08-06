@@ -88,6 +88,15 @@ These stay at the boundary by asserting through the interface where possible, an
 
 **Adopt an existing migration tool's format** (Alembic, Flyway, Prisma). Rejected for the knowledge layer, and recommended for the execution layer. The knowledge records what changed and why, in a form that survives a change of tool; the tool applies it. Binding the knowledge to one vendor's migration format would contradict stack independence for exactly the artifact that outlives stacks longest.
 
+## Implementation
+
+| Issue | |
+|---|---|
+| [#1](https://github.com/tysoncung/regen.engineering/issues/1) | Data schema as knowledge: define the format |
+| [#2](https://github.com/tysoncung/regen.engineering/issues/2) | Migrations as an append-only knowledge type |
+| [#3](https://github.com/tysoncung/regen.engineering/issues/3) | The stateful Regeneration Test |
+| [#4](https://github.com/tysoncung/regen.engineering/issues/4) | Purpose-built stateful reference system |
+
 ## Open questions
 
 - Should the data schema be able to generate DDL, or only constrain it? Generating is more useful and more coupled.

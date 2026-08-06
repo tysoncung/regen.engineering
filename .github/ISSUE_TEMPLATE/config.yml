@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Propose a change to the methodology
+    url: https://github.com/tysoncung/regen.engineering/tree/main/reps
+    about: Anything changing the schema, a required artifact, or a core rule goes through the REP process rather than an issue.
