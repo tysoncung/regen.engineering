@@ -97,6 +97,26 @@ These stay at the boundary by asserting through the interface where possible, an
 | [#3](https://github.com/tysoncung/regen.engineering/issues/3) | The stateful Regeneration Test |
 | [#4](https://github.com/tysoncung/regen.engineering/issues/4) | Purpose-built stateful reference system |
 
+## Implementation status
+
+Fully implemented as of 2026-08-07. Schema support in the tooling from 0.8.0; reference system at [regen-engineering-stateful](https://github.com/tysoncung/regen-engineering-stateful).
+
+### The result
+
+An implementation that **wipes the database on startup** passes all eighteen ordinary contract scenarios and fails the stateful test 8 of 9. Same code, one line different from the correct implementation, and the line in question is the most natural thing a regenerating agent would write from a data schema describing a finished shape.
+
+That is section 4's argument, and it turned out to be stronger in practice than it reads here. The ordinary suite is not weak: every scenario asserts something real, verified against a straw service. It simply cannot see this class of defect, because on an empty database, having just destroyed everything is indistinguishable from having just created it.
+
+### The open questions, answered
+
+**Generate DDL or only constrain?** Constrain. Generating binds the knowledge to one vendor's type system, for exactly the artifact that outlives stacks longest.
+
+**How does a fixture avoid becoming a second source of truth?** Every row must exist because of a numbered rule or a migration, named alongside the data. A row that cannot be justified by pointing at one does not belong. The rationale is knowledge; the data sits beside it.
+
+**What about a destructive migration where the old implementation cannot run?** The provisional answer holds: regenerability is scoped to the current schema version, older ones are historical. One caveat is now worth stating in the REP rather than discovering later, which is that a passing regeneration test therefore says nothing about whether last year's implementation could be rebuilt, and nobody should read it as though it did.
+
+**Does `reversible` earn its place?** Yes, and precisely because almost nothing is reversed: recording `false` tells the next person not to go looking for a way back. Three of the reference system's four migrations are irreversible and say so.
+
 ## Open questions
 
 - Should the data schema be able to generate DDL, or only constrain it? Generating is more useful and more coupled.
