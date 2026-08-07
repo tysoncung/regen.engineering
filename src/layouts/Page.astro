@@ -1,5 +1,14 @@
 ---
 import '../styles/global.css'
+// ?raw so the file is bundled at build time. Reading it from disk at render
+// time resolves against dist/ instead of the source tree, which fails only
+// during the build and not in dev, so it would have shipped.
+import manifestoRaw from '../../MANIFESTO.md?raw'
+
+// Read the version out of the manifesto rather than repeating it here. The
+// footer said 0.2 for as long as the manifesto said 0.3, which is the same
+// stale-fact failure this whole project is about, sitting in its own footer.
+const manifestoVersion = /^Version (\d+\.\d+)/m.exec(manifestoRaw)?.[1] ?? ''
 
 // Used two ways: directly by .astro pages passing props, and as the `layout`
 // of Markdown pages, where Astro supplies frontmatter instead.
@@ -79,7 +88,7 @@ const here = Astro.url.pathname.replace(/\/$/, '') || '/'
     <footer class="site-footer">
       <div class="wrap-wide">
         <p>
-          Regen Engineering is an open methodology, version 0.2, and is meant to be argued with.
+          Regen Engineering is an open methodology, version {manifestoVersion}, and is meant to be argued with.
           Proposals go through the <a href={`${repo}/tree/main/reps`}>REP process</a>; corrections
           and field reports are welcome on <a href={repo}>GitHub</a>.
         </p>

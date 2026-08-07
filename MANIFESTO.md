@@ -2,13 +2,16 @@
 
 **Knowledge is the asset. Code is the byproduct.**
 
-Version 0.2 (draft, 2026-08-06)
+Version 0.3 (draft, 2026-08-08)
 
-*What changed since 0.1: an operating model for agents, a position against loop
-engineering, a fifth debt metric, and five new entries in the honest limits.
-Every one of those limits was found by using this on real code rather than by
-review, and the section on what this cannot do is now the longest in the
-document. That is deliberate.*
+*What changed since 0.2: data, which the previous two versions quietly assumed
+away; four standing agents that run without being invoked; a correction to a
+claim 0.2 made that has since turned out to be wrong; and the sharpest limit yet
+found, which is that a test suite starting from an empty database cannot tell a
+working implementation from one that destroys everything.*
+
+*The section on what this cannot do remains the longest in the document, and
+every entry in it was found by use rather than by review.*
 
 ---
 
@@ -119,7 +122,7 @@ That single small file per module turns the compiler metaphor into an operationa
 
 ---
 
-## 3.7 The loop is maintained, not merely written
+### 3.7 The loop is maintained, not merely written
 
 Everything above describes artifacts: knowledge in a repository, contracts beside it, code produced from both. Artifacts are the easy part. The relationship between them decays continuously, and documentation has always failed for exactly one reason, which has nothing to do with formats or discipline.
 
@@ -132,6 +135,17 @@ That is the constraint agents remove. Not the typing of implementations, which i
 **Independent verification.** An agent must not verify work it produced, and must not see an existing implementation of the thing it is regenerating. This is not fastidiousness. The demo accompanying this document originally had both of its implementations written by the same agent in one session, which proved nothing whatsoever; it was marking its own homework. Only when an independent agent was given the knowledge alone did the exercise produce information, and it immediately failed a fifth of the contracts and exposed a rule referencing an interface that no document described.
 
 **Autonomous reconciliation.** When drift is found, the machine drafts the knowledge change describing what the code now does, and a person reviews a proposal rather than facing a blank page. The judgment stays human. The typing does not. This is the same inversion that makes mining work on old systems: nobody writes documentation from nothing, but everybody will correct a wrong sentence about their own domain.
+
+**Standing operation.** The three practices above are still things somebody starts. That is the wrong shape for the problem, and 0.2 did not notice it. Knowledge does not decay at the moment someone thinks to check; it decays continuously, and fastest when everyone is busy, which is exactly when nobody runs a knowledge audit. A check that only runs when you are already suspicious is a check for the one situation where it was not needed.
+
+So four things now run without being invoked, and each answers a question no single check owned:
+
+- A **Gatherer** notices when a merged change implied knowledge nobody wrote down. Its filter is the whole idea: changes that touched an implementation and touched no knowledge, because a change that touched both has already recorded itself.
+- A **Librarian** reads the entire corpus on a schedule, looking for what only a reader can see. This is the one that overturned a claim in section 9.
+- A **Monitor** watches implementations for decay, and reports which module is furthest from being understood rather than issuing a verdict.
+- A **Trigger** decides whether regenerating is worth its cost, and its most useful behaviour turned out to be **refusal**. Code-ahead drift is simultaneously a decay signal and the reason regenerating would be destructive, so every dashboard pointing at an unhealthy module points at it at exactly the moment rebuilding it deletes evidence. That refusal is mechanical, because it is not a judgement call.
+
+**Agents propose. Humans dispose.** All four produce a pull request, an issue, or a ranked list. None merges anything.
 
 A caution, because this is where the idea is easiest to oversell. Agents are how this loop runs in 2026. They are not what the methodology is. Knowledge outlives implementations, stacks, and tools, and that emphatically includes the tools that regenerate it. A method defined by what today's agents happen to do would date the moment they change, and would forfeit the independence that is the whole point.
 
@@ -156,6 +170,26 @@ It is relative to a named model, not absolute. A failed regeneration might mean 
 And behavioural equivalence under contract is bounded by the contracts you wrote. Passing them means nothing contradicts what you specified. It does not mean the two implementations are equivalent in every respect, which brings us to the limits in section 9.
 
 You do not need any tooling to run this test today, and running it on one module is usually enough to find out whether a decade of decisions has been living in two people's heads.
+
+### 4.1 Data breaks the central claim, and the test has to change with it
+
+Everything above rests on an asymmetry: implementations are cheap and replaceable, knowledge is scarce and durable. **Data is neither**, and versions 0.1 and 0.2 of this document simply did not mention it.
+
+That was not a gap in the examples. It was an unexamined assumption in the method, and it hid the first question an experienced engineer asks: *you regenerated my service, what happened to my database?*
+
+Three things follow, and none of them is optional for a system that stores anything.
+
+**The shape of stored data is knowledge.** Nothing otherwise constrains what a regenerated implementation invents. Two regenerations of the same knowledge could each reasonably choose `full_name` or `first_name`/`last_name`, and the second orphans every existing row. A module owning persistent data carries a logical data model in its knowledge package: what exists, what identifies it, what may be absent, what must be true of the rows. Not DDL, because the model outlives every physical choice made to store it.
+
+**How the data got its shape is knowledge too.** Migrations are an append-only record, immutable once applied, because a migration describes an event that has already happened to data that exists, and editing it makes the record disagree with the world. Correcting an applied migration means writing another one.
+
+**Regeneration replaces implementations, never data.** A regenerating agent may create schema; it may not write, drop, or transform existing rows. Applying a migration is a separate, deliberate act with a person's name on it.
+
+And the test itself has a stateful form, which asks a harder question than the original:
+
+> **The stateful Regeneration Test:** delete the implementation, regenerate it from knowledge alone, point it at a database **populated by the previous implementation**, and confirm the contracts still pass against rows the new code did not create.
+
+The difference between those two questions is not academic, and section 9 records what it measured.
 
 ---
 
@@ -219,6 +253,18 @@ A caveat on coverage: "complete knowledge package" has to mean something structu
 
 ---
 
+### 6.1 Added in 0.3
+
+**Data schema.** The logical model a module owns, held as knowledge: what exists, what identifies it, what may be absent, what must be true of stored rows. Not DDL.
+
+**Migration.** An append-only record of one forward step in that model, immutable once applied, carrying the backfill rule as knowledge rather than as whatever script happened to run.
+
+**Fixture.** A representative dataset that is knowledge, not test scaffolding, because what counts as representative is a domain judgement no code can make. The guard against it becoming a second source of truth: every row must be justifiable by pointing at a numbered rule or a migration.
+
+**Standing agent.** One that runs without being invoked, proposes, and never merges.
+
+---
+
 ## 7. Brownfield: how real systems get in
 
 Almost nobody starts from nothing. A methodology that only works on a blank repository is a hobby.
@@ -267,7 +313,25 @@ A methodology that claims to work everywhere is selling something.
 
 There is at least a cheap defence, and it should be automatic rather than remembered. Run the contract suite against a straw implementation that answers every request with a plausible shape and no behaviour; every scenario should fail, and any that passes is asserting nothing. The reference demo runs this in continuous integration and it caught a vacuous scenario the first time it executed. It does not make traceability mean what people assume it means, but it does stop the metric from being decorative.
 
-**Structural tooling detects that knowledge is missing. It cannot detect that knowledge is wrong.** Between those two questions sits every interesting failure. Exercising reconciliation on the reference demo produced a proposed rule that contradicted two active rules and an interface contract; validation reported no problems, because every file was individually well formed. Worse, the agent drafting it invented plausible justification the evidence did not support, and only a deliberate hunt for that failure caught it. Knowledge review is human work, and no tool here does it.
+**Structural tooling detects that knowledge is missing. It cannot detect that knowledge is wrong.** Between those two questions sits every interesting failure. Exercising reconciliation on the reference demo produced a proposed rule that contradicted two active rules and an interface contract; validation reported no problems, because every file was individually well formed. Worse, the agent drafting it invented plausible justification the evidence did not support, and only a deliberate hunt for that failure caught it.
+
+*Corrected in 0.3.* The first sentence is still true and the last one no longer is. Version 0.2 ended this entry with "knowledge review is human work, and no tool here does it", and that has since turned out to be wrong in a specific way worth recording rather than quietly editing away.
+
+The claim holds for **validators**, which check one file at a time against a schema and are structurally incapable of noticing that two individually valid files cannot both be true. It does not hold for a **reader**. An agent can read an entire knowledge corpus on a schedule for a few pence, and doing so on the brownfield pilot found six things nothing else here could see, four of which were items that had been true when written and were falsified by later work. Nothing marks such an item as changed, because the item does not change when the world does.
+
+So knowledge review is no longer entirely human work. What remains human is the disposition: every one of those findings was a proposal, and a person decided. That boundary matters more as more of this runs unattended, because a system that both proposes and disposes has quietly become the author of the software with nobody deciding that it should.
+
+This entry is itself the failure it describes. A claim written in good faith, correct when written, falsified by later work, and left standing in the most prominent document in the project until something read the whole thing and noticed.
+
+**A test suite that starts from an empty database cannot see data destruction.** This is the sharpest limit found so far, and it is not a limit of this methodology alone: it applies to almost every integration suite ever written.
+
+Measured on the stateful reference system. An implementation that drops every table at startup, and is otherwise flawless, passed **18 of 18** contract scenarios. Those scenarios are not weak: each had been verified to fail against a do-nothing service, and three were strengthened until they did. They pass because every one of them begins from an empty database, and on an empty database, having just destroyed everything is indistinguishable from having just started.
+
+The same implementation scores **1 of 9** on the stateful Regeneration Test. The one it passes is a schema version it reports about itself.
+
+Two things follow. Any suite whose fixtures always start clean is proving that code can *create* state and proving nothing about whether it can correctly *read* state something else wrote, which for most systems is the more dangerous half. And "create the schema at startup" is precisely the reading a regenerating agent takes from a data model that describes a finished shape, so this is not a hypothetical failure mode but the expected one.
+
+**The standing agents are unproven over time, and their real risk is noise.** Four of them now run on a schedule and the loop demonstrably closes: on its second unattended run the corpus reader caught a defect its own operator had introduced three hours earlier, in the commit that was acting on its previous findings. That establishes it works. It does not establish it stays useful. Two runs on one 38-item tree says nothing about a 400-item one, and the failure mode to watch is not cost but noise, because four agents filing proposals nobody reads is worse than no agents at all: it trains people to ignore the channel where the real finding will arrive. Measuring that takes a month of quiet weeks and it has not been measured.
 
 **Drift detection is weaker on a branch than it looks.** The structural rule fires when implementation files change and knowledge files do not. On a branch that changes both, it passes, and it cannot tell whether the knowledge that moved had anything to do with the code that moved. It catches the Tuesday hotfix, which is what it was built for, and it does not catch a large change whose knowledge update is cosmetic.
 
