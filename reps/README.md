@@ -12,8 +12,10 @@ Start with [REP-0001](REP-0001-the-rep-process.md), which defines the process an
 | [0002](REP-0002-require-interface-contracts.md) | Require a machine-readable interface contract for modules exposing an API | Active |
 | [0003](REP-0003-the-agentic-operating-model.md) | The agentic operating model | Active |
 | [0004](REP-0004-raid-types-and-dependencies.md) | Risk and issue types, and declared dependencies | Active |
-| [0005](REP-0005-stateful-systems.md) | Stateful systems, schema as knowledge, and migrations | Draft |
-| [0006](REP-0006-continuous-knowledge-operations.md) | Continuous knowledge operations | Draft |
+| [0005](REP-0005-stateful-systems.md) | Stateful systems, schema as knowledge, and migrations | Draft, fully implemented |
+| [0006](REP-0006-continuous-knowledge-operations.md) | Continuous knowledge operations | Draft, fully implemented |
+
+**"Draft, fully implemented" is not a contradiction, and the distinction is worth keeping.** Both proposals are built, running, and evidenced, and neither has been accepted. Under [REP-0001](REP-0001-the-rep-process.md) acceptance is a decision, not a consequence of the code existing, and collapsing the two would make the process decorative. Each carries an implementation status section recording what building it taught and what it does not establish.
 
 ## Short version
 
