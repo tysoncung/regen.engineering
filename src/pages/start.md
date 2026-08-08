@@ -66,6 +66,20 @@ The inversion is the whole trick. Nobody writes documentation from a blank page,
 
 Budget for scheduling that review. It is most of the work, and it does not fit in a spare afternoon.
 
+## If your system owns data
+
+Everything above works on a stateless module and stops short of the first
+question anyone asks about a real system, which is what happens to the database.
+
+[regen-engineering-stateful](https://github.com/tysoncung/regen-engineering-stateful)
+is the reference for that: a small billing ledger with four migrations, each one
+a case that only exists once there are rows. It also carries the result that made
+the case for any of this, which is on the [evidence](/evidence) page.
+
+The short version, if you only take one thing: **populate a database with your
+current build, restart against it, and see what still passes.** If everything
+does, you have learned something real and it cost you an afternoon.
+
 ## What comes after
 
 Levels 3 and 4, where modules are regenerable and regeneration is the normal response to change, need contracts that are knowledge rather than generated code, plus provenance and drift detection. That is what the [schema](https://github.com/tysoncung/regen-engineering-schema) and the [skills](https://github.com/tysoncung/regen-engineering-skills) exist for, and the [demo](https://github.com/tysoncung/regen-engineering-demo) shows it working end to end in two languages.
